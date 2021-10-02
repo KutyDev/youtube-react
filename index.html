@@ -1,11 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Youtube React Project</title>
+    <script
+            src="https://unpkg.com/react@17/umd/react.development.js"
+            crossorigin
+    ></script>
+    <script
+            src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+            crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         .container {
             margin: auto;
@@ -26,12 +37,14 @@
             line-height: 20px;
         }
 
-        .login-input-group, .password-input-group {
+        .login-input-group,
+        .password-input-group {
             display: flex;
             align-items: center;
         }
 
-        .login-input-group > label, .password-input-group > label {
+        .login-input-group > label,
+        .password-input-group > label {
             flex-grow: 1;
         }
 
@@ -39,19 +52,20 @@
             margin-right: 10px;
         }
 
-        .form input[type=text], .form input[type=password] {
+        .form input[type="text"],
+        .form input[type="password"] {
             border: 2px solid grey;
             border-radius: 2px;
             line-height: 20px;
             font-size: 20px;
         }
 
-        .form input[type=button] {
+        .form input[type="button"] {
             position: relative;
-            background-color: #4CAF50;
+            background-color: #4caf50;
             border: none;
             font-size: 20px;
-            color: #FFFFFF;
+            color: #ffffff;
             padding: 5px;
             width: 200px;
             text-align: center;
@@ -61,7 +75,7 @@
             cursor: pointer;
         }
 
-        .form input[type=button]:hover {
+        .form input[type="button"]:hover {
             background-color: #5ec163;
         }
 
@@ -70,14 +84,13 @@
             align-items: center;
             justify-content: center;
         }
-
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
     <div class="header">
         <h1>Zaloguj się</h1>
-        <hr/>
+        <hr />
     </div>
     <form class="form">
         <div class="login-input-group">
@@ -86,12 +99,46 @@
         </div>
         <div class="password-input-group">
             <label for="password">Hasło:</label>
-            <input id="password" type="password" aria-label="Password"/>
+            <input id="password" type="password" aria-label="Password" />
         </div>
+        <div id="root"></div>
         <div class="button-container">
             <input type="button" value="Zaloguj" />
         </div>
     </form>
-    </div>
-    </body>
+</div>
+<script type="text/babel">
+    const rootElement = document.getElementById("root");
+
+    const divElement = document.createElement("div");
+    divElement.className = "button-container";
+
+    const button = document.createElement("input");
+    button.type = "button";
+    button.value = "Zaloguj";
+
+    divElement.append(button);
+
+    // rootElement.append(divElement);
+
+    const buttonReactElement = React.createElement("input", {
+        type: "button",
+        value: "Zaloguj"
+    });
+    const divReactElement = React.createElement(
+        "div",
+        { className: "button-container" },
+        buttonReactElement
+    );
+
+    // ReactDOM.render(divReactElement, rootElement);
+
+    ReactDOM.render(
+        <div class="button-container">
+            <input type="button" value="Zaloguj" />
+        </div>,
+        rootElement
+    );
+</script>
+</body>
 </html>
