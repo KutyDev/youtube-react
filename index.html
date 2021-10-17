@@ -131,12 +131,22 @@
         buttonReactElement
     );
 
-    // ReactDOM.render(divReactElement, rootElement);
+    const Button = (props) => {
+        const {text} = props;
+        return <div className="button-container">
+            <input type="button" value={text}/>
+        </div>
+    }
 
+    const App = (props) => {
+        return <Button text="Zaloguj!" />
+    }
+
+
+    // ReactDOM.render(divReactElement, rootElement);
+    const name = "Piotr"
     ReactDOM.render(
-        <div class="button-container">
-            <input type="button" value="Zaloguj" />
-        </div>,
+        <App/>,
         rootElement
     );
 </script>
