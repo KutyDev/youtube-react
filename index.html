@@ -87,49 +87,9 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>Zaloguj się</h1>
-        <hr />
-    </div>
-    <form class="form">
-        <div class="login-input-group">
-            <label for="login">Login:</label>
-            <input id="login" type="text" aria-label="Login" />
-        </div>
-        <div class="password-input-group">
-            <label for="password">Hasło:</label>
-            <input id="password" type="password" aria-label="Password" />
-        </div>
-        <div id="root"></div>
-        <div class="button-container">
-            <input type="button" value="Zaloguj" />
-        </div>
-    </form>
-</div>
+<div id="root"></div>
 <script type="text/babel">
     const rootElement = document.getElementById("root");
-
-    const divElement = document.createElement("div");
-    divElement.className = "button-container";
-
-    const button = document.createElement("input");
-    button.type = "button";
-    button.value = "Zaloguj";
-
-    divElement.append(button);
-
-    // rootElement.append(divElement);
-
-    const buttonReactElement = React.createElement("input", {
-        type: "button",
-        value: "Zaloguj"
-    });
-    const divReactElement = React.createElement(
-        "div",
-        { className: "button-container" },
-        buttonReactElement
-    );
 
     const Button = (props) => {
         const {text} = props;
@@ -138,13 +98,55 @@
         </div>
     }
 
-    const App = (props) => {
-        return <Button text="Zaloguj!" />
+    class TextInput extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                textValue: ""
+            }
+        }
+
+        render() {
+            const {label} = this.props;
+
+            const onChange = (event) => {
+                this.setState({textValue: event.target.value})
+            }
+
+            return <div className="login-input-group">
+                <label htmlFor="login">{label}</label>
+                <input id="login" type="text" aria-label="Login" value={this.state.textValue} onChange={onChange}/>
+            </div>
+        }
     }
 
+    const PasswordInput = (props) => {
+        const {label} = props;
+        const [textValue, setTextValue] = React.useState("")
+        const onChange = (event) => {
+            setTextValue(event.target.value);
+        }
+        return  <div className="password-input-group">
+            <label htmlFor="password">{label}</label>
+            <input id="password" type="password" aria-label="Password" value={textValue} onChange={onChange}/>
+        </div>
+    }
 
-    // ReactDOM.render(divReactElement, rootElement);
-    const name = "Piotr"
+    const App = (props) => {
+        return <div className="container" >
+            <div className="header" >
+            <h1> Zaloguj się </h1>
+        <hr/>
+        </div>
+        <form className="form">
+            <TextInput label={"Login:"} />
+            <PasswordInput label={"Hasło:"} />
+            <Button text="Zaloguj!" />
+        </form>
+    </div>
+
+    }
+
     ReactDOM.render(
         <App/>,
         rootElement
