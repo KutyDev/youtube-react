@@ -92,56 +92,57 @@
     const rootElement = document.getElementById("root");
 
     const Button = (props) => {
-        const {text} = props;
+        const {text, onClick} = props;
         return <div className="button-container">
-            <input type="button" value={text}/>
+            <input type="button" value={text} onClick={onClick}/>
         </div>
     }
 
     class TextInput extends React.Component {
-        constructor() {
-            super();
-            this.state = {
-                textValue: ""
-            }
-        }
-
         render() {
-            const {label} = this.props;
-
-            const onChange = (event) => {
-                this.setState({textValue: event.target.value})
-            }
+            const {label, value, onChange} = this.props;
 
             return <div className="login-input-group">
                 <label htmlFor="login">{label}</label>
-                <input id="login" type="text" aria-label="Login" value={this.state.textValue} onChange={onChange}/>
+                <input id="login" type="text" aria-label="Login" value={value} onChange={onChange}/>
             </div>
         }
     }
 
     const PasswordInput = (props) => {
-        const {label} = props;
-        const [textValue, setTextValue] = React.useState("")
-        const onChange = (event) => {
-            setTextValue(event.target.value);
-        }
+        const {label, value, onChange} = props;
         return  <div className="password-input-group">
             <label htmlFor="password">{label}</label>
-            <input id="password" type="password" aria-label="Password" value={textValue} onChange={onChange}/>
+            <input id="password" type="password" aria-label="Password" value={value} onChange={onChange}/>
         </div>
     }
 
     const App = (props) => {
+        const [formData, setFormData] = React.useState({login: "", password: ""})
+
+        const onClick = () => {
+            console.log('Przycisk Kliknięty!')
+            console.log('Login: ', formData.login)
+            console.log('Password: ', formData.password)
+        }
+
+        const onChangeLogin = (e) => {
+            setFormData({...formData, login: e.target.value})
+        }
+
+        const onChangePassword = (e) => {
+            setFormData({...formData, password: e.target.value})
+        }
+
         return <div className="container" >
             <div className="header" >
             <h1> Zaloguj się </h1>
         <hr/>
         </div>
         <form className="form">
-            <TextInput label={"Login:"} />
-            <PasswordInput label={"Hasło:"} />
-            <Button text="Zaloguj!" />
+            <TextInput label={"Login:"} value={formData.login} onChange={onChangeLogin}/>
+            <PasswordInput label={"Hasło:"} value={formData.password} onChange={onChangePassword} />
+            <Button text="Zaloguj!" onClick={onClick} />
         </form>
     </div>
 
